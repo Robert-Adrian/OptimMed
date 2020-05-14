@@ -1,37 +1,26 @@
 package com.example.optimmed;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toolbar;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.NoSuchElementException;
 
-public class MainActivity extends AppCompatActivity {
-
+public class ForgotPwdActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_main);
-
+        setContentView(R.layout.forgotpwd_activity);
 
         //----------------------------------Scaled the Logo App---------------------------------------
         //find my ImageView
-        ImageView view = (ImageView)findViewById(R.id.imageView4) ;
+        ImageView view = (ImageView)findViewById(R.id.imageView2) ;
 
         Bitmap bitmap = null;
 
@@ -42,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (NullPointerException e) {
             throw new NoSuchElementException("No drawable on given view");
         } catch (ClassCastException e) {
-          e.printStackTrace();
+            e.printStackTrace();
 
         }
 
@@ -56,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         int height = bitmap.getHeight();
-        int bounding = dpToPx(320);
+        int bounding = dpToPx(177);
 
         // Determine how much to scale: the dimension requiring less scaling is
         // closer to the its side. This way the image always stays inside your
@@ -85,27 +74,12 @@ public class MainActivity extends AppCompatActivity {
         params.height = height;
         view.setLayoutParams(params);
 
-        //------------------------------------------------------------------------------------------------
-
-
-
     }
 
     private int dpToPx(int dp) {
         float density = getApplicationContext().getResources().getDisplayMetrics().density;
         return Math.round((float)dp * density);
     }
-
-    public void loginInterface(View view) {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-    }
-
-    public void registerInterface(View view) {
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
-    }
-
 
 
 }

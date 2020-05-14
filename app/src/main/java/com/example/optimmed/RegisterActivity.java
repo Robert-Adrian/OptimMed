@@ -1,37 +1,31 @@
 package com.example.optimmed;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toolbar;
+import android.widget.Switch;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.NoSuchElementException;
 
-public class MainActivity extends AppCompatActivity {
-
+public class RegisterActivity extends AppCompatActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_main);
-
+    protected void onCreate(Bundle savedBundleInstance) {
+        super.onCreate(savedBundleInstance);
+        setContentView(R.layout.register_activity);
 
         //----------------------------------Scaled the Logo App---------------------------------------
         //find my ImageView
-        ImageView view = (ImageView)findViewById(R.id.imageView4) ;
+        ImageView view = (ImageView)findViewById(R.id.imageView) ;
 
         Bitmap bitmap = null;
 
@@ -42,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (NullPointerException e) {
             throw new NoSuchElementException("No drawable on given view");
         } catch (ClassCastException e) {
-          e.printStackTrace();
+            e.printStackTrace();
 
         }
 
@@ -89,6 +83,20 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
+        Switch switchBtn = findViewById(R.id.switch1);
+        switchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextView codMedic = (TextView)findViewById(R.id.textView7);
+                if (((Switch)v).isChecked()) {
+                    codMedic.setVisibility(View.INVISIBLE);
+                } else {
+                    codMedic.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private int dpToPx(int dp) {
@@ -96,16 +104,8 @@ public class MainActivity extends AppCompatActivity {
         return Math.round((float)dp * density);
     }
 
-    public void loginInterface(View view) {
+    public void loginActivity(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
-
-    public void registerInterface(View view) {
-        Intent intent = new Intent(this, RegisterActivity.class);
-        startActivity(intent);
-    }
-
-
-
 }
