@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         //----------------------------------Scaled the Logo App---------------------------------------
         //find my ImageView
-        ImageView view = (ImageView)findViewById(R.id.imageView4) ;
+        ImageView view = (ImageView)findViewById(R.id.imageView4);
 
         Bitmap bitmap = null;
 

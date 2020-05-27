@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void mainActivity(View view) {
-        Intent intent = new Intent(this, PacientActivity.class);
+        Intent intent = new Intent(this, MedicActivity.class);
         startActivity(intent);
     }
 
