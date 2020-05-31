@@ -57,4 +57,42 @@
                 app:layout_constraintStart_toEndOf="@+id/editText5" />
         </LinearLayout>
     </ScrollView>
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="160dp"
+        android:backgroundTint="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.085"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/keyboard_back" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton5"
+        android:layout_width="169dp"
+        android:layout_height="143dp"
+        android:layout_marginTop="44dp"
+        android:background="#FFFFFF"
+        android:clickable="true"
+        app:backgroundTint="#34CC9E"
+        app:elevation="6dp"
+        app:fabSize="auto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:srcCompat="@drawable/search" />
+
+    <include
+        layout="@layout/medic_pacientsearchbox"
+        android:layout_width="412dp"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="invisible"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
