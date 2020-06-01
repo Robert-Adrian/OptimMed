@@ -7,22 +7,38 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 public class RegisterActivity extends AppCompatActivity {
+    RequestQueue queue;
+    int medicOrpacient = 0;
     @Override
     protected void onCreate(Bundle savedBundleInstance) {
         super.onCreate(savedBundleInstance);
         setContentView(R.layout.register_activity);
-
+        queue = Volley.newRequestQueue(this);
         //----------------------------------Scaled the Logo App---------------------------------------
         //find my ImageView
         ImageView view = (ImageView)findViewById(R.id.imageView) ;
@@ -92,8 +108,10 @@ public class RegisterActivity extends AppCompatActivity {
                 TextView codMedic = (TextView)findViewById(R.id.textView7);
                 if (((Switch)v).isChecked()) {
                     codMedic.setVisibility(View.INVISIBLE);
+                    medicOrpacient = 2;
                 } else {
                     codMedic.setVisibility(View.VISIBLE);
+                    medicOrpacient = 1;
                 }
             }
         });
@@ -104,8 +122,124 @@ public class RegisterActivity extends AppCompatActivity {
         return Math.round((float)dp * density);
     }
 
-    public void loginActivity(View view) {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+    public void loginActivity(View view) throws JSONException {
+        List<String> listaEmail = new ArrayList<>();
+        listaEmail.add("@gmail.com");
+        listaEmail.add("@yahoo.com");
+        final String username = ((EditText)findViewById(R.id.editText2)).getText().toString().trim();
+        final boolean[] usernameValid = {false};
+        String password = ((EditText)findViewById(R.id.editText3)).getText().toString().trim();
+        String email = ((EditText)findViewById(R.id.editText4)).getText().toString().trim();
+        int emailCorrect = 0;
+        int codMedic = 0;
+        final boolean[] codValid = {false};
+
+        if (medicOrpacient == 1) {
+            if (username.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Introdu un nume de utilizator!", Toast.LENGTH_SHORT).show();
+            } else {
+                String urlUsername = "http://192.168.100.21/pacienti/findByUserName/" + username;
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlUsername, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if (response.getString("utilizator").equals(username)) {
+                                usernameValid[0] = true;
+                                Toast.makeText(getApplicationContext(), "Numele de utilizator exista deja!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                usernameValid[0] = false;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+                queue.add(request);
+            }
+
+            if (email.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Introduceti o adresa de email!", Toast.LENGTH_SHORT).show();
+            } else {
+                int indexEmail = email.indexOf("@");
+                if (indexEmail == -1) {
+                    Toast.makeText(getApplicationContext(), "Introduceti un email valid!", Toast.LENGTH_SHORT).show();
+                } else {
+                    for (int i = 0; i < listaEmail.size(); i++) {
+                        if (listaEmail.get(i).equals(email.substring(indexEmail, email.length()))) {
+                            emailCorrect = 1;
+                            break;
+                        }
+                    }
+                    if (emailCorrect == 0)
+                        Toast.makeText(getApplicationContext(), "Email invalid!", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            if (((EditText) findViewById(R.id.textView7)).getText().toString().isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Introduceti codul medicului la care sunteti asociat!", Toast.LENGTH_SHORT).show();
+            } else {
+                codMedic = Integer.parseInt(((EditText) findViewById(R.id.textView7)).getText().toString());
+
+                String urlCodMedic = "http://18.223.115.1:8080/optimed/pacienti/getMedic/" + codMedic;
+                final int finalCodMedic = codMedic;
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlCodMedic, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if (response.getInt("idMedic") == finalCodMedic) {
+                                codValid[0] = true;
+                            } else {
+                                codValid[0] = false;
+                                Toast.makeText(getApplicationContext(), "Codul medicului nu exista!", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+                queue.add(request);
+            }
+
+            if (codValid[0] == true && usernameValid[0] == false && emailCorrect == 1) {
+                String urlCodMedic = "http://18.223.115.1:8080/optimed/pacienti/addPacient";
+
+                Pacient pacient = new Pacient(codMedic, username, password, email);
+                JSONObject object = new JSONObject();
+                try {
+                    object.put("idMedic", pacient.getIdMedic());
+                    object.put("utilizator", pacient.getUtilizator());
+                    object.put("parola", pacient.getParola());
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, urlCodMedic, object, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(intent);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+                queue.add(request);
+            }
+        } else if (medicOrpacient == 2){
+
+        }
     }
 }

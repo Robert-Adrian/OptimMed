@@ -27,6 +27,7 @@ public class Pacient {
         this.utilizator = utilizator;
         Parola = parola;
         Email = email;
+
     }
 
     public Pacient(int idPacient, int idMedic, String utilizator, String parola, String nume, String prenume, int varsta, String CNP, Date dataNasterii, String sex, String adresa, String telefon, String email, String profesie, String diagnostic, String recomandari, String retete, String rapoarte) {
