@@ -6,21 +6,49 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.NoSuchElementException;
 
 public class LoginActivity extends AppCompatActivity {
+    RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedBundleInstance) {
         super.onCreate(savedBundleInstance);
         setContentView(R.layout.login_activity);
+
+        queue = Volley.newRequestQueue(this);
+
 //----------------------------------Scaled the Logo App---------------------------------------
         //find my ImageView
         ImageView view = (ImageView)findViewById(R.id.imageView4) ;
@@ -92,9 +120,74 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void mainActivity(View view) {
-        Intent intent = new Intent(this, MedicActivity.class);
-        startActivity(intent);
+    public void mainActivity(View view) throws IOException {
+        String urlPacient = "http://18.223.115.1:8080/optimed/pacienti/login/" + ((EditText) findViewById(R.id.textView)).getText().toString().trim() + "/" + ((EditText) findViewById(R.id.textView3)).getText().toString().trim();
+        String urlMedic = "http://18.223.115.1:8080/optimed/medici/login/" + ((EditText) findViewById(R.id.textView)).getText().toString().trim() + "/" + ((EditText) findViewById(R.id.textView3)).getText().toString().trim();
+        final String[] nume = new String[1];
+        final String[] pass = new String[1];
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlPacient, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    nume[0] = response.getString("utilizator");
+                    pass[0] = response.getString("parola");
+
+                   // System.out.println(nume + " " + pass);
+
+                    if (!nume[0].trim().equals(((EditText)findViewById(R.id.textView)).getText().toString().trim())) {
+                        Toast.makeText(getApplicationContext(), "Numele de utilizator este incorect!", Toast.LENGTH_SHORT).show();
+                    } else if (!pass[0].trim().equals(((EditText)findViewById(R.id.textView3)).getText().toString().trim())) {
+                        Toast.makeText(getApplicationContext(), "Parola este incorecta!", Toast.LENGTH_SHORT).show();
+                    } else if (nume[0].trim().equals(((EditText)findViewById(R.id.textView)).getText().toString()) && pass[0].trim().equals(((EditText)findViewById(R.id.textView3)).getText().toString())) {
+                        Intent intent = new Intent(getApplicationContext(), PacientActivity.class);
+                        startActivity(intent);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+
+       queue.add(request);
+
+        request = new JsonObjectRequest(Request.Method.GET, urlMedic, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    nume[0] = response.getString("utilizator");
+                    pass[0] = response.getString("parola");
+
+                    // System.out.println(nume + " " + pass);
+                    if (!nume[0].trim().equals(((EditText)findViewById(R.id.textView)).getText().toString().trim())) {
+                        Toast.makeText(getApplicationContext(), "Numele de utilizator este incorect!", Toast.LENGTH_SHORT).show();
+                    } else if (!pass[0].trim().equals(((EditText)findViewById(R.id.textView3)).getText().toString().trim())) {
+                        Toast.makeText(getApplicationContext(), "Parola este incorecta!", Toast.LENGTH_SHORT).show();
+                    } else if (nume[0].trim().equals(((EditText)findViewById(R.id.textView)).getText().toString().trim()) && pass[0].trim().equals(((EditText)findViewById(R.id.textView3)).getText().toString().trim())) {
+                        Intent intent = new Intent(getApplicationContext(), MedicActivity.class);
+                        startActivity(intent);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+       queue.add(request);
     }
 
 }
