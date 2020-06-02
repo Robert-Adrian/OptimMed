@@ -4,23 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light">
+    android:background="@drawable/medic_background2">
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="415dp"
-        android:layout_height="366dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <include
+        android:id="@+id/include6"
+        layout="@layout/medic_pacientsearchbox"
+        android:layout_width="412dp"
+        android:layout_height="70dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/floatingActionButton5" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8"
+        app:layout_constraintVertical_bias="0.38">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <Button
                 android:id="@+id/button6"
                 android:layout_width="wrap_content"
@@ -37,7 +49,7 @@
                 android:shadowColor="@android:color/transparent"
                 android:singleLine="false"
                 android:text="Pacient 1 \n Pacientul 1 este intr-o stare buna de sanatate \n Click pe pacient pentru un raport complet"
-                android:textColor="@android:color/holo_blue_light"
+                android:textColor="@android:color/black"
                 android:textSize="11dp"
 
                 android:visibility="visible"
@@ -50,37 +62,26 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton5"
-        android:layout_width="169dp"
-        android:layout_height="143dp"
-        android:layout_marginTop="44dp"
-        android:background="#FFFFFF"
+        android:layout_width="58dp"
+        android:layout_height="61dp"
+        android:layout_marginBottom="68dp"
+        android:backgroundTint="@android:color/secondary_text_light_nodisable"
         android:clickable="true"
-        app:backgroundTint="#34CC9E"
-        app:elevation="6dp"
-        app:fabSize="auto"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
-        app:srcCompat="@drawable/search" />
-
-    <include
-        layout="@layout/medic_pacientsearchbox"
-        android:layout_width="412dp"
-        android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        android:visibility="invisible"/>
+        app:srcCompat="@drawable/search_icon" />
 
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="313dp"
-        android:layout_height="290dp"
-        android:layout_marginBottom="36dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        android:id="@+id/imageView8"
+        android:layout_width="122dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/medic_upper_icon_cutted" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/componenta" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

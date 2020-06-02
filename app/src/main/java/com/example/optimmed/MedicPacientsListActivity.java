@@ -1,18 +1,23 @@
 package com.example.optimmed;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -26,17 +31,32 @@ public class MedicPacientsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.medic_activity_leftpacientsbutton);
 
-       /* FloatingActionButton floatingActionButton=findViewById(R.id.floatingActionButton5);
+       FloatingActionButton floatingActionButton=findViewById(R.id.floatingActionButton5);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
-                Toast.makeText(MedicPacientsListActivity.this,"Ar trebui sa fie un searchbox", Toast.LENGTH_SHORT).show();
-                EditText editText=findViewById(R.id.editText7);
-
+               /* Toast.makeText(MedicPacientsListActivity.this, "Searchbox here!", Toast.LENGTH_SHORT).show();*/
+              /*  EditText editText=findViewById(R.id.editText7);
+                editText.setVisibility(View.VISIBLE);*/
+                Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar3);
+                toolbar.setVisibility(View.VISIBLE);
             }
         });
 
-        for(int i=1;i<=4;i++)
+        // Find the ScrollView
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView2);
+
+        // Create a LinearLayout element
+        LinearLayout linearLayout = new LinearLayout(this);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+
+        // Add Buttons
+        Button button = new Button(scrollView.getContext());
+        button.setText("Pacient 1\\n Pacientul 1 este intr-o stare buna de sanatate \\n Click pe pacient pentru un raport complet");
+        linearLayout.addView(button);
+        scrollView.addView(button);
+        /*for(int i=1;i<=4;i++)
         {
             Button btn=new Button(this);
             btn.setId(i);
@@ -47,7 +67,7 @@ public class MedicPacientsListActivity extends AppCompatActivity {
         }*/
         //----------------------------------Scaled the Logo App---------------------------------------
         //find my ImageView
-        ImageView view = (ImageView)findViewById(R.id.imageView5) ;
+        ImageView view=(ImageView)findViewById(R.id.imageView8) ;
 
         Bitmap bitmap = null;
 

@@ -8,14 +8,6 @@
     android:padding="5dp">
 
 
-    <!--<Button
-        android:id="@+id/button7"
-        android:layout_width="wrap_content"
-        android:layout_height="174dp"
-        android:layout_weight="1"
-        android:text=""
-        android:background="@drawable/leftarrow"/>-->
-
     <ImageButton
         android:id="@+id/imageButton"
         android:layout_width="wrap_content"
@@ -23,6 +15,7 @@
         android:layout_weight="1"
         android:backgroundTint="@android:color/transparent"
         android:paddingTop="96dp"
+        android:clickable="true"
         app:srcCompat="@drawable/leftarrow" />
 
     <ImageView
@@ -30,6 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:clickable="true"
         app:srcCompat="@drawable/allgood" />
 
     <ImageButton
