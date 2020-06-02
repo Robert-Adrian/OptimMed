@@ -9,41 +9,44 @@
         android:id="@+id/editText2"
         android:layout_width="match_parent"
         android:layout_height="37dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Username"
-        android:padding="8dp"
-        android:background="@drawable/input_text"
         android:layout_marginLeft="50dp"
+        android:layout_marginTop="50dp"
         android:layout_marginRight="50dp"
-        android:layout_marginTop="50dp"/>
+        android:background="@drawable/input_text"
+        android:ems="10"
+        android:hint="Username"
+        android:inputType="textPersonName"
+        android:padding="8dp"
+        android:singleLine="true" />
 
     <EditText
         android:id="@+id/editText3"
         android:layout_width="match_parent"
         android:layout_height="37dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Password"
-        android:padding="8dp"
-        android:background="@drawable/input_text"
         android:layout_marginLeft="50dp"
+        android:layout_marginTop="40dp"
         android:layout_marginRight="50dp"
-        android:layout_marginTop="40dp"/>
+        android:background="@drawable/input_text"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="8dp"
+        android:singleLine="true" />
 
     <EditText
         android:id="@+id/editText4"
         android:layout_width="match_parent"
         android:layout_height="37dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Email"
-        android:padding="8dp"
-        android:background="@drawable/input_text"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="40dp"
         android:layout_marginRight="50dp"
-        android:layout_marginBottom="50dp"/>
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/input_text"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textPersonName"
+        android:padding="8dp"
+        android:singleLine="true" />
 
     <include
         android:id="@+id/include"

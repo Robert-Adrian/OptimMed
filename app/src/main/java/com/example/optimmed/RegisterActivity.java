@@ -22,6 +22,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
@@ -108,10 +109,10 @@ public class RegisterActivity extends AppCompatActivity {
                 TextView codMedic = (TextView)findViewById(R.id.textView7);
                 if (((Switch)v).isChecked()) {
                     codMedic.setVisibility(View.INVISIBLE);
-                    medicOrpacient = 2;
+                    //medicOrpacient = 2;
                 } else {
                     codMedic.setVisibility(View.VISIBLE);
-                    medicOrpacient = 1;
+                   // medicOrpacient = 1;
                 }
             }
         });
@@ -122,124 +123,104 @@ public class RegisterActivity extends AppCompatActivity {
         return Math.round((float)dp * density);
     }
 
-    public void loginActivity(View view) throws JSONException {
-        List<String> listaEmail = new ArrayList<>();
+    public void loginActivity(View view) throws JSONException, InterruptedException {
+        final List<String> listaEmail = new ArrayList<>();
         listaEmail.add("@gmail.com");
         listaEmail.add("@yahoo.com");
-        final String username = ((EditText)findViewById(R.id.editText2)).getText().toString().trim();
-        final boolean[] usernameValid = {false};
         String password = ((EditText)findViewById(R.id.editText3)).getText().toString().trim();
-        String email = ((EditText)findViewById(R.id.editText4)).getText().toString().trim();
-        int emailCorrect = 0;
-        int codMedic = 0;
-        final boolean[] codValid = {false};
+        final String email = ((EditText)findViewById(R.id.editText4)).getText().toString().trim();
+        final int[] emailCorrect = {0};
 
-        if (medicOrpacient == 1) {
-            if (username.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "Introdu un nume de utilizator!", Toast.LENGTH_SHORT).show();
-            } else {
-                String urlUsername = "http://192.168.100.21/pacienti/findByUserName/" + username;
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlUsername, null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            if (response.getString("utilizator").equals(username)) {
-                                usernameValid[0] = true;
-                                Toast.makeText(getApplicationContext(), "Numele de utilizator exista deja!", Toast.LENGTH_SHORT).show();
-                            } else {
-                                usernameValid[0] = false;
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
 
-                    }
-                });
-                queue.add(request);
-            }
+        Switch switchBtn = findViewById(R.id.switch1);
+        if (!switchBtn.isChecked()) {
+            final int codMedic = Integer.parseInt(((EditText)findViewById(R.id.textView7)).getText().toString());
+            final boolean[] codValid = {false};
+            final String username = ((EditText)findViewById(R.id.editText2)).getText().toString().trim();
 
-            if (email.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "Introduceti o adresa de email!", Toast.LENGTH_SHORT).show();
-            } else {
-                int indexEmail = email.indexOf("@");
-                if (indexEmail == -1) {
-                    Toast.makeText(getApplicationContext(), "Introduceti un email valid!", Toast.LENGTH_SHORT).show();
-                } else {
-                    for (int i = 0; i < listaEmail.size(); i++) {
-                        if (listaEmail.get(i).equals(email.substring(indexEmail, email.length()))) {
-                            emailCorrect = 1;
-                            break;
-                        }
-                    }
-                    if (emailCorrect == 0)
-                        Toast.makeText(getApplicationContext(), "Email invalid!", Toast.LENGTH_SHORT).show();
+
+            String urlPacient = "http://18.223.115.1:8080/optimed/pacienti/addPacient";
+
+            final JSONObject object = new JSONObject();
+            object.put("idMedic", String.valueOf(codMedic));
+            object.put("utilizator", username);
+            object.put("parola", password);
+            object.put("email", email);
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, urlPacient, object, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+
                 }
-            }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
 
-            if (((EditText) findViewById(R.id.textView7)).getText().toString().isEmpty()) {
-                Toast.makeText(getApplicationContext(), "Introduceti codul medicului la care sunteti asociat!", Toast.LENGTH_SHORT).show();
-            } else {
-                codMedic = Integer.parseInt(((EditText) findViewById(R.id.textView7)).getText().toString());
-
-                String urlCodMedic = "http://18.223.115.1:8080/optimed/pacienti/getMedic/" + codMedic;
-                final int finalCodMedic = codMedic;
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlCodMedic, null, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            if (response.getInt("idMedic") == finalCodMedic) {
-                                codValid[0] = true;
-                            } else {
-                                codValid[0] = false;
-                                Toast.makeText(getApplicationContext(), "Codul medicului nu exista!", Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                });
-                queue.add(request);
-            }
-
-            if (codValid[0] == true && usernameValid[0] == false && emailCorrect == 1) {
-                String urlCodMedic = "http://18.223.115.1:8080/optimed/pacienti/addPacient";
-
-                Pacient pacient = new Pacient(codMedic, username, password, email);
-                JSONObject object = new JSONObject();
-                try {
-                    object.put("idMedic", pacient.getIdMedic());
-                    object.put("utilizator", pacient.getUtilizator());
-                    object.put("parola", pacient.getParola());
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
+            });
+            queue.add(request);
 
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, urlCodMedic, object, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                        startActivity(intent);
+            request = new JsonObjectRequest(Request.Method.GET, "http://18.223.115.1:8080/optimed/pacienti/findByUserName/" + username, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        if (response.getString("utilizator").equals(username)) {
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                            startActivity(intent);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
 
+                }
+            });
+            queue.add(request);
+
+        } else {
+            final String username = ((EditText)findViewById(R.id.editText2)).getText().toString().trim();
+
+
+            String urlMedic = "http://18.223.115.1:8080/optimed/medici/addMedic";
+
+            final JSONObject object = new JSONObject();
+            object.put("utilizator", username);
+            object.put("parola", password);
+            object.put("email", email);
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, urlMedic, object, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+            queue.add(request);
+
+            request = new JsonObjectRequest(Request.Method.GET, "http://18.223.115.1:8080/optimed/medici/findByUserName/" + username, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        if (response.getString("utilizator").equals(username)) {
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                            startActivity(intent);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                });
-                queue.add(request);
-            }
-        } else if (medicOrpacient == 2){
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
 
+                }
+            });
+            queue.add(request);
         }
     }
 }

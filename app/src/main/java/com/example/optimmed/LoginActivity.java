@@ -165,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                     nume[0] = response.getString("utilizator");
                     pass[0] = response.getString("parola");
 
-                    // System.out.println(nume + " " + pass);
+                     System.out.println(nume + " " + pass);
                     if (!nume[0].trim().equals(((EditText)findViewById(R.id.textView)).getText().toString().trim())) {
                         Toast.makeText(getApplicationContext(), "Numele de utilizator este incorect!", Toast.LENGTH_SHORT).show();
                     } else if (!pass[0].trim().equals(((EditText)findViewById(R.id.textView3)).getText().toString().trim())) {
@@ -177,6 +177,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+
                 }
 
             }
