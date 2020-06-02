@@ -8,13 +8,22 @@
     android:padding="5dp">
 
 
-    <ImageView
-        android:id="@+id/imageView5"
+    <!--<Button
+        android:id="@+id/button7"
+        android:layout_width="wrap_content"
+        android:layout_height="174dp"
+        android:layout_weight="1"
+        android:text=""
+        android:background="@drawable/leftarrow"/>-->
+
+    <ImageButton
+        android:id="@+id/imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        app:srcCompat="@drawable/leftarrow"
-        android:paddingTop="100dp"/>
+        android:backgroundTint="@android:color/transparent"
+        android:paddingTop="96dp"
+        app:srcCompat="@drawable/leftarrow" />
 
     <ImageView
         android:id="@+id/imageView6"
@@ -23,11 +32,13 @@
         android:layout_weight="1"
         app:srcCompat="@drawable/allgood" />
 
-    <ImageView
-        android:id="@+id/imageView7"
+    <ImageButton
+        android:id="@+id/imageButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        app:srcCompat="@drawable/rightarrow"
-        android:paddingTop="100dp"/>
+        android:backgroundTint="@android:color/transparent"
+        android:paddingTop="96dp"
+        app:srcCompat="@drawable/rightarrow" />
+
 </LinearLayout>

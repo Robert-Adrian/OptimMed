@@ -26,13 +26,13 @@ public class MedicPacientsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.medic_activity_leftpacientsbutton);
 
-        FloatingActionButton floatingActionButton=findViewById(R.id.floatingActionButton5);
+       /* FloatingActionButton floatingActionButton=findViewById(R.id.floatingActionButton5);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MedicPacientsListActivity.this,"Ar trebui sa fie un searchbox", Toast.LENGTH_SHORT).show();
                 EditText editText=findViewById(R.id.editText7);
-                
+
             }
         });
 
@@ -44,10 +44,10 @@ public class MedicPacientsListActivity extends AppCompatActivity {
             @SuppressLint("WrongViewCast") LinearLayout ll = (LinearLayout)findViewById(R.id.button6);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             ll.addView(btn, lp);
-        }
+        }*/
         //----------------------------------Scaled the Logo App---------------------------------------
         //find my ImageView
-        ImageView view = (ImageView)findViewById(R.id.imageView8) ;
+        ImageView view = (ImageView)findViewById(R.id.imageView5) ;
 
         Bitmap bitmap = null;
 

@@ -1,10 +1,15 @@
 package com.example.optimmed;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +23,14 @@ public class MedicActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.medic_activity);
 
+        ImageButton imageButton=(ImageButton) findViewById(R.id.imageButton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(MedicActivity.this, MedicPacientsListActivity.class);
+                startActivity(intent);
+            }
+        });
         //----------------------------------Scaled the Logo App---------------------------------------
         //find my ImageView
         ImageView view = (ImageView)findViewById(R.id.imageView3) ;

@@ -24,6 +24,8 @@
         <activity android:name=".ForgotPwdActivity"/>
         <activity android:name=".PacientActivity"/>
         <activity android:name=".MedicActivity"/>
+        <activity android:name=".MedicPacientsListActivity"/>
+        <activity android:name=".MedicPacientCondition"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
