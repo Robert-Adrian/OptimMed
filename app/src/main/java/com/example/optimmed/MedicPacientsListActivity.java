@@ -1,39 +1,53 @@
 package com.example.optimmed;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.NoSuchElementException;
 
-public class MedicActivity extends AppCompatActivity {
+public class MedicPacientsListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.medic_activity);
+        setContentView(R.layout.medic_activity_leftpacientsbutton);
 
-        ImageButton imageButton=(ImageButton) findViewById(R.id.imageButton);
-        imageButton.setOnClickListener(new View.OnClickListener() {
+       /* FloatingActionButton floatingActionButton=findViewById(R.id.floatingActionButton5);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MedicActivity.this, MedicPacientsListActivity.class);
-                startActivity(intent);
+                Toast.makeText(MedicPacientsListActivity.this,"Ar trebui sa fie un searchbox", Toast.LENGTH_SHORT).show();
+                EditText editText=findViewById(R.id.editText7);
+
             }
         });
+
+        for(int i=1;i<=4;i++)
+        {
+            Button btn=new Button(this);
+            btn.setId(i);
+            btn.setText("Pacient %d"+i);
+            @SuppressLint("WrongViewCast") LinearLayout ll = (LinearLayout)findViewById(R.id.button6);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            ll.addView(btn, lp);
+        }*/
         //----------------------------------Scaled the Logo App---------------------------------------
         //find my ImageView
-        ImageView view = (ImageView)findViewById(R.id.imageView3) ;
+        ImageView view = (ImageView)findViewById(R.id.imageView5) ;
 
         Bitmap bitmap = null;
 
@@ -91,4 +105,5 @@ public class MedicActivity extends AppCompatActivity {
         float density = getApplicationContext().getResources().getDisplayMetrics().density;
         return Math.round((float)dp * density);
     }
+
 }

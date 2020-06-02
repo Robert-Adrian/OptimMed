@@ -7,22 +7,39 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 public class RegisterActivity extends AppCompatActivity {
+    RequestQueue queue;
+    int medicOrpacient = 0;
     @Override
     protected void onCreate(Bundle savedBundleInstance) {
         super.onCreate(savedBundleInstance);
         setContentView(R.layout.register_activity);
-
+        queue = Volley.newRequestQueue(this);
         //----------------------------------Scaled the Logo App---------------------------------------
         //find my ImageView
         ImageView view = (ImageView)findViewById(R.id.imageView) ;
@@ -92,8 +109,10 @@ public class RegisterActivity extends AppCompatActivity {
                 TextView codMedic = (TextView)findViewById(R.id.textView7);
                 if (((Switch)v).isChecked()) {
                     codMedic.setVisibility(View.INVISIBLE);
+                    //medicOrpacient = 2;
                 } else {
                     codMedic.setVisibility(View.VISIBLE);
+                   // medicOrpacient = 1;
                 }
             }
         });
@@ -104,8 +123,104 @@ public class RegisterActivity extends AppCompatActivity {
         return Math.round((float)dp * density);
     }
 
-    public void loginActivity(View view) {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+    public void loginActivity(View view) throws JSONException, InterruptedException {
+        final List<String> listaEmail = new ArrayList<>();
+        listaEmail.add("@gmail.com");
+        listaEmail.add("@yahoo.com");
+        String password = ((EditText)findViewById(R.id.editText3)).getText().toString().trim();
+        final String email = ((EditText)findViewById(R.id.editText4)).getText().toString().trim();
+        final int[] emailCorrect = {0};
+
+
+        Switch switchBtn = findViewById(R.id.switch1);
+        if (!switchBtn.isChecked()) {
+            final int codMedic = Integer.parseInt(((EditText)findViewById(R.id.textView7)).getText().toString());
+            final boolean[] codValid = {false};
+            final String username = ((EditText)findViewById(R.id.editText2)).getText().toString().trim();
+
+
+            String urlPacient = "http://18.223.115.1:8080/optimed/pacienti/addPacient";
+
+            final JSONObject object = new JSONObject();
+            object.put("idMedic", String.valueOf(codMedic));
+            object.put("utilizator", username);
+            object.put("parola", password);
+            object.put("email", email);
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, urlPacient, object, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+            queue.add(request);
+
+            request = new JsonObjectRequest(Request.Method.GET, "http://18.223.115.1:8080/optimed/pacienti/findByUserName/" + username, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        if (response.getString("utilizator").equals(username)) {
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                            startActivity(intent);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+            queue.add(request);
+
+        } else {
+            final String username = ((EditText)findViewById(R.id.editText2)).getText().toString().trim();
+
+
+            String urlMedic = "http://18.223.115.1:8080/optimed/medici/addMedic";
+
+            final JSONObject object = new JSONObject();
+            object.put("utilizator", username);
+            object.put("parola", password);
+            object.put("email", email);
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, urlMedic, object, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+            queue.add(request);
+
+            request = new JsonObjectRequest(Request.Method.GET, "http://18.223.115.1:8080/optimed/medici/findByUserName/" + username, null, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    try {
+                        if (response.getString("utilizator").equals(username)) {
+                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                            startActivity(intent);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+            });
+            queue.add(request);
+        }
     }
 }
