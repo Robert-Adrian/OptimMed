@@ -31,20 +31,27 @@ public class MedicPacientsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.medic_activity_leftpacientsbutton);
 
-       FloatingActionButton floatingActionButton=findViewById(R.id.floatingActionButton5);
+       final FloatingActionButton floatingActionButton=findViewById(R.id.floatingActionButton5);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
                /* Toast.makeText(MedicPacientsListActivity.this, "Searchbox here!", Toast.LENGTH_SHORT).show();*/
-              /*  EditText editText=findViewById(R.id.editText7);
-                editText.setVisibility(View.VISIBLE);*/
-                Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar3);
-                toolbar.setVisibility(View.VISIBLE);
+              EditText editText=findViewById(R.id.editText7);
+              floatingActionButton.hide();
+              if(editText.getVisibility()==View.VISIBLE)
+              {
+                  editText.setVisibility(View.INVISIBLE);
+              }
+              else
+              {
+                  editText.setVisibility(View.VISIBLE);
+              }
+
             }
         });
 
-        // Find the ScrollView
+       /* // Find the ScrollView
         ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView2);
 
         // Create a LinearLayout element
@@ -55,7 +62,7 @@ public class MedicPacientsListActivity extends AppCompatActivity {
         Button button = new Button(scrollView.getContext());
         button.setText("Pacient 1\\n Pacientul 1 este intr-o stare buna de sanatate \\n Click pe pacient pentru un raport complet");
         linearLayout.addView(button);
-        scrollView.addView(button);
+        scrollView.addView(button);*/
         /*for(int i=1;i<=4;i++)
         {
             Button btn=new Button(this);
