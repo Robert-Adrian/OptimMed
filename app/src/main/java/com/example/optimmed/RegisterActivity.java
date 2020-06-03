@@ -139,7 +139,7 @@ public class RegisterActivity extends AppCompatActivity {
             final String username = ((EditText)findViewById(R.id.editText2)).getText().toString().trim();
 
 
-            String urlPacient = "http://18.223.115.1:8080/optimed/pacienti/addPacient";
+            String urlPacient = "http://192.168.100.20:80/pacienti/addPacient";
 
             final JSONObject object = new JSONObject();
             object.put("idMedic", String.valueOf(codMedic));
@@ -159,7 +159,7 @@ public class RegisterActivity extends AppCompatActivity {
             });
             queue.add(request);
 
-            request = new JsonObjectRequest(Request.Method.GET, "http://18.223.115.1:8080/optimed/pacienti/findByUserName/" + username, null, new Response.Listener<JSONObject>() {
+            request = new JsonObjectRequest(Request.Method.GET, "http://192.168.100.20/pacienti/findByUserName/" + username, null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {
@@ -183,7 +183,7 @@ public class RegisterActivity extends AppCompatActivity {
             final String username = ((EditText)findViewById(R.id.editText2)).getText().toString().trim();
 
 
-            String urlMedic = "http://18.223.115.1:8080/optimed/medici/addMedic";
+            String urlMedic = "http://192.168.100.20:80/medici/addMedic";
 
             final JSONObject object = new JSONObject();
             object.put("utilizator", username);
@@ -202,7 +202,7 @@ public class RegisterActivity extends AppCompatActivity {
             });
             queue.add(request);
 
-            request = new JsonObjectRequest(Request.Method.GET, "http://18.223.115.1:8080/optimed/medici/findByUserName/" + username, null, new Response.Listener<JSONObject>() {
+            request = new JsonObjectRequest(Request.Method.GET, "http://192.168.100.20:80/medici/findByUserName/" + username, null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     try {

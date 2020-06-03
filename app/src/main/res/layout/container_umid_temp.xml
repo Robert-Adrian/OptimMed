@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/umiditate"
+        android:layout_width="137dp"
+        android:layout_height="137dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/container_umid_temp"
+        android:contentDescription="Umiditate" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/temperatura"
+        android:layout_width="137dp"
+        android:layout_height="137dp"
+        android:background="@drawable/container_umid_temp"
+        android:contentDescription="Temperatura" />
+</LinearLayout>

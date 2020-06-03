@@ -3,10 +3,9 @@ package com.example.optimmed;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Pacient implements Serializable {
-    private int idPacient;
+public class Medic implements Serializable {
     private int idMedic;
-    private String utilizator;
+    private String Utilizator;
     private String Parola;
     private String Nume;
     private String Prenume;
@@ -17,24 +16,20 @@ public class Pacient implements Serializable {
     private String Adresa;
     private String Telefon;
     private String Email;
-    private String Profesie;
-    private String Diagnostic;
+    private String Specializare;
+    private String Parafa;
     private String Recomandari;
     private String Retete;
-    private String Rapoarte;
 
-    public Pacient(int idMedic, String utilizator, String parola, String email) {
-        this.idMedic = idMedic;
-        this.utilizator = utilizator;
+    public Medic(String utilizator, String parola, String email) {
+        Utilizator = utilizator;
         Parola = parola;
         Email = email;
-
     }
 
-    public Pacient(int idPacient, int idMedic, String utilizator, String parola, String nume, String prenume, int varsta, String CNP, Date dataNasterii, String sex, String adresa, String telefon, String email, String profesie, String diagnostic, String recomandari, String retete, String rapoarte) {
-        this.idPacient = idPacient;
+    public Medic(int idMedic, String utilizator, String parola, String nume, String prenume, int varsta, String CNP, Date dataNasterii, String sex, String adresa, String telefon, String email, String specializare, String parafa, String recomandari, String retete) {
         this.idMedic = idMedic;
-        this.utilizator = utilizator;
+        Utilizator = utilizator;
         Parola = parola;
         Nume = nume;
         Prenume = prenume;
@@ -45,17 +40,15 @@ public class Pacient implements Serializable {
         Adresa = adresa;
         Telefon = telefon;
         Email = email;
-        Profesie = profesie;
-        Diagnostic = diagnostic;
+        Specializare = specializare;
+        Parafa = parafa;
         Recomandari = recomandari;
         Retete = retete;
-        Rapoarte = rapoarte;
     }
 
-    public Pacient(int idPacient, int idMedic, String utilizator, String parola, String nume, String prenume, int varsta, String CNP, String sex, String adresa, String telefon, String email, String profesie, String diagnostic, String recomandari, String retete, String rapoarte) {
-        this.idPacient = idPacient;
+    public Medic(int idMedic, String utilizator, String parola, String nume, String prenume, int varsta, String CNP, String sex, String adresa, String telefon, String email, String specializare, String parafa, String recomandari, String retete) {
         this.idMedic = idMedic;
-        this.utilizator = utilizator;
+        Utilizator = utilizator;
         Parola = parola;
         Nume = nume;
         Prenume = prenume;
@@ -65,19 +58,10 @@ public class Pacient implements Serializable {
         Adresa = adresa;
         Telefon = telefon;
         Email = email;
-        Profesie = profesie;
-        Diagnostic = diagnostic;
+        Specializare = specializare;
+        Parafa = parafa;
         Recomandari = recomandari;
         Retete = retete;
-        Rapoarte = rapoarte;
-    }
-
-    public int getIdPacient() {
-        return idPacient;
-    }
-
-    public void setIdPacient(int idPacient) {
-        this.idPacient = idPacient;
     }
 
     public int getIdMedic() {
@@ -89,11 +73,11 @@ public class Pacient implements Serializable {
     }
 
     public String getUtilizator() {
-        return utilizator;
+        return Utilizator;
     }
 
     public void setUtilizator(String utilizator) {
-        this.utilizator = utilizator;
+        Utilizator = utilizator;
     }
 
     public String getParola() {
@@ -176,20 +160,20 @@ public class Pacient implements Serializable {
         Email = email;
     }
 
-    public String getProfesie() {
-        return Profesie;
+    public String getSpecializare() {
+        return Specializare;
     }
 
-    public void setProfesie(String profesie) {
-        Profesie = profesie;
+    public void setSpecializare(String specializare) {
+        Specializare = specializare;
     }
 
-    public String getDiagnostic() {
-        return Diagnostic;
+    public String getParafa() {
+        return Parafa;
     }
 
-    public void setDiagnostic(String diagnostic) {
-        Diagnostic = diagnostic;
+    public void setParafa(String parafa) {
+        Parafa = parafa;
     }
 
     public String getRecomandari() {
@@ -208,11 +192,25 @@ public class Pacient implements Serializable {
         Retete = retete;
     }
 
-    public String getRapoarte() {
-        return Rapoarte;
-    }
-
-    public void setRapoarte(String rapoarte) {
-        Rapoarte = rapoarte;
+    @Override
+    public String toString() {
+        return "Medic{" +
+                "idMedic=" + idMedic +
+                ", Utilizator='" + Utilizator + '\'' +
+                ", Parola='" + Parola + '\'' +
+                ", Nume='" + Nume + '\'' +
+                ", Prenume='" + Prenume + '\'' +
+                ", Varsta=" + Varsta +
+                ", CNP='" + CNP + '\'' +
+                ", DataNasterii=" + DataNasterii +
+                ", Sex='" + Sex + '\'' +
+                ", Adresa='" + Adresa + '\'' +
+                ", Telefon='" + Telefon + '\'' +
+                ", Email='" + Email + '\'' +
+                ", Specializare='" + Specializare + '\'' +
+                ", Parafa='" + Parafa + '\'' +
+                ", Recomandari='" + Recomandari + '\'' +
+                ", Retete='" + Retete + '\'' +
+                '}';
     }
 }

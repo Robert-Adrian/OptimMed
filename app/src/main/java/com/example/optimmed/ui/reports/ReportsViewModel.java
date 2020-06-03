@@ -1,19 +1,21 @@
-package com.example.optimmed.ui.home;
+package com.example.optimmed.ui.reports;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+public class ReportsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public ReportsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("");
+        mText.setValue("This is gallery fragment");
     }
 
     public LiveData<String> getText() {
         return mText;
     }
+
 }
+
