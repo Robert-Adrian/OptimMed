@@ -3,8 +3,8 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">#538C8B</item>
+        <item name="colorPrimaryDark">#538C8B</item>
         <item name="colorAccent">@color/colorAccent</item>
         <!--Customization the status bar and the navigation bar-->
         <item name="android:windowTranslucentStatus">true</item>

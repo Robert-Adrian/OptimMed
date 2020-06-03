@@ -6,17 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/text_home"
+
+    <!--  <com.github.mikephil.charting.charts.PieChart
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        tools:layout_editor_absoluteX="71dp"
+        tools:layout_editor_absoluteY="185dp" />-->
+
+    <!--<com.github.mikephil.charting.charts.PieChart
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        tools:layout_editor_absoluteX="255dp"
+        tools:layout_editor_absoluteY="185dp" />-->
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="30dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <include
+                android:id="@+id/include5"
+                layout="@layout/pacient_umid_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/ekg_graphic"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/ekg_pacient_graphic" />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/puls_graphic"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/ekg_pacient_graphic" />
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -37,6 +38,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.NoSuchElementException;
 
 public class LoginActivity extends AppCompatActivity {
@@ -121,8 +125,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void mainActivity(View view) throws IOException {
-        String urlPacient = "http://18.223.115.1:8080/optimed/pacienti/login/" + ((EditText) findViewById(R.id.textView)).getText().toString().trim() + "/" + ((EditText) findViewById(R.id.textView3)).getText().toString().trim();
-        String urlMedic = "http://18.223.115.1:8080/optimed/medici/login/" + ((EditText) findViewById(R.id.textView)).getText().toString().trim() + "/" + ((EditText) findViewById(R.id.textView3)).getText().toString().trim();
+        String urlPacient = "http://192.168.100.20:80/pacienti/login/" + ((EditText) findViewById(R.id.textView)).getText().toString().trim() + "/" + ((EditText) findViewById(R.id.textView3)).getText().toString().trim();
+        String urlMedic = "http://192.168.100.20:80/medici/login/" + ((EditText) findViewById(R.id.textView)).getText().toString().trim() + "/" + ((EditText) findViewById(R.id.textView3)).getText().toString().trim();
         final String[] nume = new String[1];
         final String[] pass = new String[1];
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlPacient, null, new Response.Listener<JSONObject>() {
@@ -139,7 +143,9 @@ public class LoginActivity extends AppCompatActivity {
                     } else if (!pass[0].trim().equals(((EditText)findViewById(R.id.textView3)).getText().toString().trim())) {
                         Toast.makeText(getApplicationContext(), "Parola este incorecta!", Toast.LENGTH_SHORT).show();
                     } else if (nume[0].trim().equals(((EditText)findViewById(R.id.textView)).getText().toString()) && pass[0].trim().equals(((EditText)findViewById(R.id.textView3)).getText().toString())) {
+                        Pacient pacient = new Pacient(response.getInt("idPacient"), response.getInt("idMedic"), response.getString("utilizator"), response.getString("parola"), response.getString("nume"), response.getString("prenume"), response.getInt("varsta"), response.getString("cnp"), response.getString("sex"), response.getString("adresa"), response.getString("telefon"), response.getString("email"), response.getString("profesie"), response.getString("diagnostic"), response.getString("recomandari"), response.getString("retete"), response.getString("rapoarte"));
                         Intent intent = new Intent(getApplicationContext(), PacientActivity.class);
+                        intent.putExtra("pacient", pacient);
                         startActivity(intent);
                     }
 
@@ -171,7 +177,10 @@ public class LoginActivity extends AppCompatActivity {
                     } else if (!pass[0].trim().equals(((EditText)findViewById(R.id.textView3)).getText().toString().trim())) {
                         Toast.makeText(getApplicationContext(), "Parola este incorecta!", Toast.LENGTH_SHORT).show();
                     } else if (nume[0].trim().equals(((EditText)findViewById(R.id.textView)).getText().toString().trim()) && pass[0].trim().equals(((EditText)findViewById(R.id.textView3)).getText().toString().trim())) {
+
+                        Medic medic = new Medic(response.getInt("idMedic"), response.getString("utilizator"), response.getString("parola"), response.getString("nume"), response.getString("prenume"), response.getInt("varsta"), response.getString("cnp"), response.getString("sex"), response.getString("adresa"), response.getString("telefon"), response.getString("email"), response.getString("specializare"), response.getString("parafa"), response.getString("recomandari"), response.getString("retete"));
                         Intent intent = new Intent(getApplicationContext(), MedicActivity.class);
+                        intent.putExtra("medic", medic);
                         startActivity(intent);
                     }
 

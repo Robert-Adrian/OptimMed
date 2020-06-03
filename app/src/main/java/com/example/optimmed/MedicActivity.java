@@ -18,11 +18,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import java.util.NoSuchElementException;
 
 public class MedicActivity extends AppCompatActivity {
+    Medic medic;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.medic_activity);
-
+        medic = (Medic)getIntent().getSerializableExtra("medic");
         ImageButton imageButton=(ImageButton) findViewById(R.id.imageButton);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
